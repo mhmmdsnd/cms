@@ -11,18 +11,19 @@ $('#sign').click(function(e) {
 });
 
 function login () {
+	var base_url = window.location;
 	hideshow('loading',1);
 	error(0);
 	
 	$.ajax({
 		type : "POST",
-		url : "http://localhost/cms/login/check_database",
+		url : base_url+"/check_database",
 		data: {loginname : $('#loginname').val(), password : $('#password').val()},
 		dataType : "json",
 		success : function(data){
 			if(parseInt(data.status)==1)
 			{
-				window.location="http://localhost/cms/cpanel/";
+				window.location="http://localhost/toms/cpanel/";
 			}
 			else if(parseInt(data.status)==0)
 			{

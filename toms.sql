@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `cms_v6`
 --
-CREATE DATABASE IF NOT EXISTS `cms_v6` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `cms_v6`;
+CREATE DATABASE IF NOT EXISTS `toms` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `toms`;
 
 -- --------------------------------------------------------
 

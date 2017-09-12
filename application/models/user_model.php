@@ -1,7 +1,8 @@
 <?php
 Class User_model extends CI_Model
 {
-	private $table_name = 'users';
+	private $table_name = 'sys_users';
+    private $table_group = 'sys_group';
 	function login ($loginname,$password)
 	{
 		$this->db->select('id, loginname, password, groupId');
@@ -21,7 +22,9 @@ Class User_model extends CI_Model
 	}
 	function get_paged_list ($limit=10,$offset=0, $order_column='',$order_type='asc')
 	{
-		if (empty($order_column)||empty($order_type))
+        $where = array('id!='=>1);
+        $this->db->where($where);
+        if (empty($order_column)||empty($order_type))
 		$this->db->order_by('id','asc');
 		else 
 		$this->db->order_by($order_column,$order_type);
@@ -54,10 +57,10 @@ Class User_model extends CI_Model
     function get_group ()
     {
         $this->db->order_by('groupId','asc');
-        $hasil = $this->db->get('group');
+        $hasil = $this->db->get($this->table_group);
+        $result[""] = "Select ...";
         foreach ($hasil->result_array() as $list)
         {
-            $result[] = "Select ...";
             $result[$list['groupId']] = $list['groupName'];
         }
         return $result;

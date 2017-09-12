@@ -17,6 +17,9 @@
           <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
     <![endif]-->
 	<script src="<?php echo base_url();?>assets/js/jquery-2.1.4.min.js"></script>
+	<script src="<?php echo base_url();?>assets/js/ace-extra.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/ace-elements.min.js"></script>
+	<script src="<?php echo base_url();?>assets/js/ace.min.js"></script>
 	<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='<?php echo base_url();?>assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 	</script>
@@ -39,7 +42,7 @@
         </button>
         <div class="navbar-header pull-left">
             <a href="/cms" class="navbar-brand">
-                <small><i class="fa fa-leaf"></i> CMS - Online Store</small>
+                <small><i class="fa fa-leaf"></i> TOMS - Transfer Order Movement Status</small>
             </a>
         </div>
         <div class="navbar-buttons navbar-header pull-right" role="navigation">
@@ -96,7 +99,7 @@
                     {
                         if($tt == $list['moduleUrl']) $str .="<li class='active'>";
                         else $str .="<li class=''>";
-                        $str .= "<a href=/cms/".$list['moduleUrl'].">";
+                        $str .= "<a href=".base_url()."".$list['moduleUrl'].">";
                         $str .= "<i class='menu-icon fa fa-caret-right'></i> ".$list['menuName']."</a><b class='arrow'></b>";
                         $subchild = print_recursive_menu($list['parentId']);
                         if($subchild != '')

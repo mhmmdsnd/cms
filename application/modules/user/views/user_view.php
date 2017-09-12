@@ -1,5 +1,4 @@
-<link href="<?php echo base_url();?>assets/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css">
-<link href="<?php echo base_url();?>assets/css/dataTables.responsive.css" rel="stylesheet" type="text/css">
+<link href="<?php echo base_url();?>assets/css/datatables.responsive.min.css" rel="stylesheet">
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/jquery.dataTables.bootstrap.min.js"></script>
 <script>

@@ -1,10 +1,11 @@
 <?php
 Class Groupuser_model extends CI_Model
 {
-	private $table_group = 'group';
-	private $table_groupusers = 'groupusers';
-	
-	function get_paged_list ($limit=10,$offset=0, $order_column='',$order_type='asc')
+	private $table_group = 'sys_group';
+	private $table_groupusers = 'sys_groupusers';
+    private $table_module = 'sys_module';
+
+    function get_paged_list ($limit=10,$offset=0, $order_column='',$order_type='asc')
 	{
 		if (empty($order_column)||empty($order_type))
 		$this->db->order_by('groupId','asc');
@@ -50,7 +51,7 @@ Class Groupuser_model extends CI_Model
     function getall_module ($parent=0)
     {
     	$getmod = array();
-    	$this->db->from('sys_module');
+    	$this->db->from($this->table_module);
     	//$this->db->where('parentId !=',$parent);
     	$result = $this->db->get();
     	foreach ($result->result() as $rst)
@@ -68,7 +69,7 @@ Class Groupuser_model extends CI_Model
     	$where = array('groupId'=>1);
     	$this->db->select('distinct(moduleMenu)');
     	$this->db->from($this->table_groupusers);
-    	$this->db->join('module','groupusers.moduleId = module.moduleId','inner');
+    	$this->db->join($this->table_module,$this->table_groupusers.'.moduleId = '.$this->table_module.'.moduleId','inner');
     	$this->db->where($where);
     	$result = $this->db->get();
     	foreach ($result->result() as $rst)
@@ -83,7 +84,7 @@ Class Groupuser_model extends CI_Model
     	$where = array('groupId'=>$gid,'moduleMenu'=>$mMenu );
     	$this->db->select('moduleName, moduleUrl');
     	$this->db->from($this->table_groupusers);
-    	$this->db->join('module','groupusers.moduleId = module.moduleId','inner');
+    	$this->db->join($this->table_module,$this->table_groupusers.'.moduleId = '.$this->table_module.'.moduleId','inner');
     	$this->db->where($where);
     	$result = $this->db->get();
     	foreach ($result->result() as $rst)
@@ -110,7 +111,7 @@ Class Groupuser_model extends CI_Model
 	{
 		$menu = array();
 		$this->db->from($this->table_groupusers);
-		$this->db->join('sys_module','groupusers.moduleId = sys_module.menuId','inner');
+		$this->db->join($this->table_module,$this->table_groupusers.'.moduleId = '.$this->table_module.'.menuId','inner');
 		$this->db->where('parentId',$parent);
 		$this->db->where('groupId',$grpId);
 		$this->db->order_by('menuId asc');

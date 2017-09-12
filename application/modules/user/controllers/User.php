@@ -6,48 +6,49 @@ class User extends CI_Controller {
 	private $limit = 10;
  function __construct()
  {
-   parent::__construct();
-   	$this->load->library('form_validation');
-	$this->load->model('user_model');
-   	$this->load->library('pagination');
+ 	 parent::__construct();
+	 $this->load->library('form_validation');
+	 $this->load->model('master_model');
+	 $this->load->model('user_model');
+	 $this->load->library('pagination');
  }
 
  function index($offset=0, $order_column='id', $order_type='asc')
  {
-   if($this->session->userdata('logged_in'))
-   {
-	if (!$offset) $offset=0;
-	if (!$order_column) $order_column = 'id';
-	if (!$order_type) $order_type = 'asc';
-	
-	$data['result'] = $this->user_model->get_paged_list($this->limit, $offset, $order_column, $order_type);
-	
-	$config['base_url']=site_url('user/index/');
-	$config['total_rows']=$this->user_model->count_all();
-	$config['per_page']=$this->limit;
-	$config['uri_segment']='3';
-	$this->pagination->initialize($config);
-	$data['paginator']=$this->pagination->create_links();
-	
-	//$data = array('result'=>$result, 'paginator'=>$paginator);
+	if($this->session->userdata('logged_in'))
+	{
+		if (!$offset) $offset=0;
+		if (!$order_column) $order_column = 'id';
+		if (!$order_type) $order_type = 'asc';
 
-	//table data
-	$this->template->set('title','User');
-	$this->template->load('cpanel/template','user_view',$data);
-   }
-   else
-   {
-     //If no session, redirect to login page
-     redirect('login', 'refresh');
-   }
+		$data['result'] = $this->user_model->get_paged_list($this->limit, $offset, $order_column, $order_type);
+
+		$config['base_url']=site_url('user/index/');
+		$config['total_rows']=$this->user_model->count_all();
+		$config['per_page']=$this->limit;
+		$config['uri_segment']='3';
+		$this->pagination->initialize($config);
+		$data['paginator']=$this->pagination->create_links();
+
+		//table data
+		$this->template->set('title','User');
+		$this->template->load('cpanel/template','user_view',$data);
+	}
+	else
+	{
+		 //If no session, redirect to login page
+		 redirect('login', 'refresh');
+	}
  }
  function create () 
  {
-    $data['getgroup'] = $this->user_model->get_group();
-	if($this->input->post('action')){
+ 	$data['getgroup'] = $this->user_model->get_group();
+	$data['getlokasi'] = $this->master_model->get_lokasi();
+
+	 if($this->input->post('action')){
 		$data_user = array('firstname' => $this->input->post('firstname'),'lastname' => $this->input->post('lastname'),
-                            'loginname' => $this->input->post('loginname'),'groupId' => $this->input->post('groupId'),
-						'password' => md5($this->input->post('password')));
+							'loginname' => $this->input->post('loginname'),'groupId' => $this->input->post('groupId'),
+							'lokasiId' => $this->input->post('lokasiId'),'password' => md5($this->input->post('password')));
 		$id = $this->user_model->save($data_user);
 		//validasi ID
 		$this->validation->id = $id;
@@ -62,13 +63,15 @@ class User extends CI_Controller {
  {
  	$data['detail'] = $this->user_model->get_by_id($id)->row();
     $data['getgroup'] = $this->user_model->get_group();
+	 $data['getlokasi'] = $this->master_model->get_lokasi();
 	
 	// set common properties
 	
 	if($this->input->post('action')){
 		$id = $this->input->post('id');
 		$data_user = array('firstname' => $this->input->post('firstname'),'lastname' => $this->input->post('lastname'),
-                            'loginname' => $this->input->post('loginname'),'groupId' => $this->input->post('groupId'));
+                            'loginname' => $this->input->post('loginname'),'groupId' => $this->input->post('groupId'),
+							'lokasiId' => $this->input->post('lokasiId'));
         $this->user_model->update($id,$data_user);
         
         if ($_POST['password']) {
