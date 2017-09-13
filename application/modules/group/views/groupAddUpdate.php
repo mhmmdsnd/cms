@@ -1,5 +1,3 @@
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.ui.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
 <?php if ($_SERVER['PATH_INFO'] == "/group/create") { ?>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -33,65 +31,90 @@ $(document).ready(function(){
 		invalidHandler: function (form) {
 		}
 	});
-	
+	$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass: 'iradio_minimal-blue'
+    });
 });
 </script>
-<div class="widget-box">
-    <div class="widget-header widget-header-blue widget-header-flat">
-        <h4 class="widget-title lighter">Add / Update Group</h4>
-    </div>
-<div class="widget-body">
-    <div class="widget-main">
-        <div id="fuelux-wizard-container">
-            <div class="step-content pos-rel">
-            <form class="form-horizontal" method="post" id="grpuser_form" name="grpuser_form">
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Group Name : </label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="groupname" id="groupname" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="wizard-actions">
-                <input type="submit" name="action" value="Save" class="btn btn-primary" />
-				<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>group');" />
-                </div>
-                </form>
+<!-- Default box -->
+<div class="box box-default">
+<div class="box-header with-border">
+  <h3 class="box-title">Add / Update Group</h3>
+</div>
+<form class="form-horizontal" method="post" id="grpuser_form" name="grpuser_form">
+<div class="box-body">
+    <div class="form-group">
+        <label class="control-label col-sm-2 no-padding-right">Group Name : </label>
+        <div class="col-xs-6 col-sm-9">
+            <div class="clearfix">
+                <input type="text" name="groupname" id="groupname" class="form-control" />
             </div>
         </div>
     </div>
+    <!-- iCheck -->
+    <div class="box-header with-border">
+      <h3 class="box-title">List of Module - Menu</h3>
+    </div>
+    <table class="table table-bordered">
+    <tr>
+      <th style="width: 10px">#</th>
+      <th>Module - Menu</th>
+      <th>Access</th>
+    </tr>
+    <tr>
+      <td>1.</td>
+      <td>Admin - Users</td>
+      <td><input type="checkbox" class="minimal"></td>
+    </tr>
+  </table>
 </div>
+<div class="box-footer">
+<input type="submit" name="action" value="Save" class="btn btn-primary" />
+<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>group');" />
+</div>
+</form>
 </div>
 
 <?php } else { ?>
-<div class="widget-box">
-    <div class="widget-header widget-header-blue widget-header-flat">
-        <h4 class="widget-title lighter">Add / Update Group</h4>
-    </div>
-<div class="widget-body">
-    <div class="widget-main">
-        <div id="fuelux-wizard-container">
-            <div class="step-content pos-rel">
-            <form class="form-horizontal" method="post" id="grpuser_form" name="grpuser_form">
-            <input id="groupid" name="groupid" type="hidden" value="<?php echo $detail->groupid ?>" />
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Group Name : </label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="groupname" id="groupname" class="col-xs-12 col-sm-6" value="<?php echo $detail->groupName ?>" />
-                        </div>
-                    </div>
-                </div>
-                <div class="wizard-actions">
-                <input type="submit" name="action" value="Save" class="btn btn-primary" />
-				<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>group');" />
-                </div>
-                </form>
+<!-- Default box -->
+<div class="box">
+<div class="box-header with-border">
+  <h3 class="box-title">Add / Update Group</h3>
+</div>
+<form class="form-horizontal" method="post" id="grpuser_form" name="grpuser_form">
+<input id="groupid" name="groupid" type="hidden" value="<?php echo $detail->groupId ?>" />
+<div class="box-body">
+    <div class="form-group">
+        <label class="control-label col-sm-2 no-padding-right">Group Name : </label>
+        <div class="col-xs-6 col-sm-9">
+            <div class="clearfix">
+                <input type="text" name="groupname" id="groupname" class="form-control" value="<?php echo $detail->groupName ?>"/>
             </div>
         </div>
     </div>
+    <!-- iCheck -->
+    <div class="box-header with-border">
+      <h3 class="box-title">List of Module - Menu</h3>
+    </div>
+    <table class="table table-bordered">
+    <tr>
+      <th style="width: 10px">#</th>
+      <th>Module - Menu</th>
+      <th>Access</th>
+    </tr>
+    <tr>
+      <td>1.</td>
+      <td>Admin - Users</td>
+      <td><input type="checkbox" class="minimal"></td>
+    </tr>
+  </table>
 </div>
+<div class="box-footer">
+<input type="submit" name="action" value="Update" class="btn btn-primary" />
+<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>group');" />
+</div>
+</form>
 </div>
 
 <?php } ?>

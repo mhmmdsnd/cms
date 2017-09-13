@@ -12,19 +12,19 @@
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-skins.min.css" />
     <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-rtl.min.css" />
-    <!--[if lte IE 9]>
+	<!--[if lte IE 9]>
         <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
           <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
     <![endif]-->
-    <script src="<?php echo base_url();?>assets/js/ace-extra.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/jquery-2.1.4.min.js"></script>
+	<script src="<?php echo base_url();?>assets/js/ace-extra.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/ace-elements.min.js"></script>
+	<script src="<?php echo base_url();?>assets/js/ace.min.js"></script>
 	<script type="text/javascript">
 			if('ontouchstart' in document.documentElement) document.write("<script src='<?php echo base_url();?>assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
 	</script>
 	<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/ace-elements.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/ace.min.js"></script>
-    <!--[if lte IE 8]>
+	<!--[if lte IE 8]>
     <script src="<?php echo base_url();?>assets/js/html5shiv.min.js"></script>
     <script src="<?php echo base_url();?>assets/js/respond.min.js"></script>
     <![endif]-->
@@ -42,7 +42,7 @@
         </button>
         <div class="navbar-header pull-left">
             <a href="/cms" class="navbar-brand">
-                <small><i class="fa fa-leaf"></i> CMS - Online Store</small>
+                <small><i class="fa fa-leaf"></i> TOMS - Transfer Order Movement Status</small>
             </a>
         </div>
         <div class="navbar-buttons navbar-header pull-right" role="navigation">
@@ -75,7 +75,7 @@
         <script type="text/javascript">
             try{ace.settings.loadState('sidebar')}catch(e){}
         </script>
-        
+
         <ul class="nav nav-list">
             <li class="">
                 <a href="<?php echo base_url(); ?>cpanel">
@@ -84,47 +84,47 @@
                 </a>
                 <b class="arrow"></b>
             </li>
-            <?
-			
-            $groupId = $session['groupId'];
-
-            //$tt = str_replace("/","",$_SERVER['REQUEST_URI']);
-            $multilevel = $this->groupuser_model->all_menu($parent=0,$groupId);
-            //recursive menu
-            function print_recursive_menu($data)
-            {
-                $str = "";
-                $tt = str_replace("/","",$_SERVER['REQUEST_URI']);
-                foreach($data as $list)
+            <?php 
+                //$session = $this->session->userdata('logged_in');
+                $groupId = $session['groupId'];
+                
+                //$tt = str_replace("/","",$_SERVER['REQUEST_URI']);
+                $multilevel = $this->groupuser_model->all_menu($parent=0,$groupId);
+                //recursive menu
+                function print_recursive_menu($data)
                 {
-                    if($tt == $list['moduleUrl']) $str .="<li class='active'>";
+                    $str = "";
+                    $tt = str_replace("/","",$_SERVER['REQUEST_URI']);
+                    foreach($data as $list)
+                    {
+                        if($tt == $list['moduleUrl']) $str .="<li class='active'>";
                         else $str .="<li class=''>";
-                        $str .= "<a href=/cms/".$list['moduleUrl'].">";
+                        $str .= "<a href=".base_url()."".$list['moduleUrl'].">";
                         $str .= "<i class='menu-icon fa fa-caret-right'></i> ".$list['menuName']."</a><b class='arrow'></b>";
                         $subchild = print_recursive_menu($list['parentId']);
                         if($subchild != '')
-                        $str .= "<ul class=dropdown-menu>".$subchild."</ul>";
+                            $str .= "<ul class=submenu>".$subchild."</ul>";
                         $str .= "</li>";
                     }
-                return $str;
-            }
-            foreach ($multilevel as $data)
-            {
-            	echo '<li class="dropdown">';
-                echo '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="menu-icon fa fa-desktop"></i> ';
-                echo '<span class="menu-text">'.$data['menuName'].'</span> <b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b>';
-                echo '<ul class="dropdown-menu">';
-                echo print_recursive_menu($data['parentId']);
-                echo '</ul>';
-            }
+                    return $str;
+                }
+                foreach ($multilevel as $data)
+                 {
+                     echo '<li class="active open">';
+                     echo '<a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-desktop"></i>';
+                     echo '<span class="menu-text">'.$data['menuName'].'</span><b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b>';
+                     echo '<ul class="submenu">';
+                     echo print_recursive_menu($data['parentId']);
+                     echo '</ul>';
+                 }
             ?>
-         </ul>
-         <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+            </ul>
+        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
             <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-        </div>   
-     </div>
-    <!-- END NAVBAR HEADER-->
-    <!-- MAINBAR -->
+        </div>
+    </div>
+    <!-- END NAVBAR SIDEBAR-->
+	<!-- MAINBAR -->
     <div class="main-content">
         <div class="main-content-inner">
             <div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -133,7 +133,7 @@
                         <i class="ace-icon fa fa-home home-icon"></i>
                         <a href="#">Home</a>
                     </li>
-                    <li class="active"><?php /*echo $title;*/?></li>
+                    <li class="active"><?php echo $title;?></li>
                 </ul>
             </div>
             <div class="page-content">

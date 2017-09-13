@@ -1,150 +1,177 @@
 <?php  defined('BASEPATH') OR exit('No direct script access allowed');?>
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <meta charset="utf-8" />
-    <title><?php echo $title;?></title>
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/font-awesome/4.5.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/fonts.googleapis.com.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-skins.min.css" />
-    <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-rtl.min.css" />
-	<!--[if lte IE 9]>
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
-          <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ace-ie.min.css" />
-    <![endif]-->
-	<script src="<?php echo base_url();?>assets/js/jquery-2.1.4.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/ace-extra.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/ace-elements.min.js"></script>
-	<script src="<?php echo base_url();?>assets/js/ace.min.js"></script>
-	<script type="text/javascript">
-			if('ontouchstart' in document.documentElement) document.write("<script src='<?php echo base_url();?>assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
-	</script>
-	<script src="<?php echo base_url();?>assets/js/bootstrap.min.js"></script>
-	<!--[if lte IE 8]>
-    <script src="<?php echo base_url();?>assets/js/html5shiv.min.js"></script>
-    <script src="<?php echo base_url();?>assets/js/respond.min.js"></script>
-    <![endif]-->
-    <? 	$session = $this->session->userdata('logged_in'); ?>
-</head>
-<body class="no-skin">
-<!-- START NAVBAR HEADER -->
-<div id="navbar" class="navbar navbar-default ace-save-state">
-    <div class="navbar-container ace-save-state" id="navbar-container">
-        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
-            <span class="sr-only">Toggle sidebar</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-        <div class="navbar-header pull-left">
-            <a href="/cms" class="navbar-brand">
-                <small><i class="fa fa-leaf"></i> TOMS - Transfer Order Movement Status</small>
-            </a>
-        </div>
-        <div class="navbar-buttons navbar-header pull-right" role="navigation">
-            <ul class="nav ace-nav">
-                <li class="light-blue dropdown-modal">
-                    <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                        <img class="nav-user-photo" src="<?php echo base_url();?>assets/images/avatar2.png" alt="" />
-                        <span class="user-info">
-                            <small>Welcome, </small><? echo $session['loginname'] ?></span>
-                        <i class="ace-icon fa fa-caret-down"></i>
-                    </a>
-                    <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-                        <li>
-                            <a href="<?php echo base_url();?>cpanel/logout"><i class="ace-icon fa fa-power-off"></i> Logout </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div><!-- /.navbar-container -->
-</div>
-<!-- END NAVBAR HEADER -->
-<!-- START NAVBAR SIDEBAR -->
-<div class="main-container ace-save-state" id="main-container">
-    <script type="text/javascript">
-        try{ace.settings.loadState('main-container')}catch(e){}
-    </script>
-	<!-- START NAVBAR SIDEBAR -->
-    <div id="sidebar" class="sidebar responsive ace-save-state">
-        <script type="text/javascript">
-            try{ace.settings.loadState('sidebar')}catch(e){}
-        </script>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title><?php echo $title;?></title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ionicons.min.css">
+  <link href="<?php echo base_url();?>assets/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/skins/skin-blue.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/blue.css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/select2.min.css">
 
-        <ul class="nav nav-list">
-            <li class="">
-                <a href="<?php echo base_url(); ?>cpanel">
-                    <i class="menu-icon fa fa-tachometer"></i>
-                    <span class="menu-text"> Dashboard </span>
-                </a>
-                <b class="arrow"></b>
-            </li>
-            <?php 
-                //$session = $this->session->userdata('logged_in');
-                $groupId = $session['groupId'];
-                
-                //$tt = str_replace("/","",$_SERVER['REQUEST_URI']);
-                $multilevel = $this->groupuser_model->all_menu($parent=0,$groupId);
-                //recursive menu
-                function print_recursive_menu($data)
-                {
-                    $str = "";
-                    $tt = str_replace("/","",$_SERVER['REQUEST_URI']);
-                    foreach($data as $list)
-                    {
-                        if($tt == $list['moduleUrl']) $str .="<li class='active'>";
-                        else $str .="<li class=''>";
-                        $str .= "<a href=".base_url()."".$list['moduleUrl'].">";
-                        $str .= "<i class='menu-icon fa fa-caret-right'></i> ".$list['menuName']."</a><b class='arrow'></b>";
-                        $subchild = print_recursive_menu($list['parentId']);
-                        if($subchild != '')
-                            $str .= "<ul class=submenu>".$subchild."</ul>";
-                        $str .= "</li>";
-                    }
-                    return $str;
-                }
-                foreach ($multilevel as $data)
-                 {
-                     echo '<li class="active open">';
-                     echo '<a href="#" class="dropdown-toggle"><i class="menu-icon fa fa-desktop"></i>';
-                     echo '<span class="menu-text">'.$data['menuName'].'</span><b class="arrow fa fa-angle-down"></b></a><b class="arrow"></b>';
-                     echo '<ul class="submenu">';
-                     echo print_recursive_menu($data['parentId']);
-                     echo '</ul>';
-                 }
-            ?>
-            </ul>
-        <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-            <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-        </div>
-    </div>
-    <!-- END NAVBAR SIDEBAR-->
-	<!-- MAINBAR -->
-    <div class="main-content">
-        <div class="main-content-inner">
-            <div class="breadcrumbs ace-save-state" id="breadcrumbs">
-                <ul class="breadcrumb">
-                    <li>
-                        <i class="ace-icon fa fa-home home-icon"></i>
-                        <a href="#">Home</a>
-                    </li>
-                    <li class="active"><?php echo $title;?></li>
+    <script src="<?php echo base_url(); ?>assets/js/jquery-2.2.3.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+	<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/jquery.dataTables.min.js"></script>
+    <script src="<?php echo base_url();?>assets/js/dataTables.bootstrap.min.js"></script>
+	<script src="<?php echo base_url();?>assets/js/icheck.min.js"></script>
+   	<script src="<?php echo base_url();?>assets/js/select2.full.min.js"></script>
+  <? 	$session = $this->session->userdata('logged_in'); ?>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+  <header class="main-header">
+    <!-- Logo -->
+    <a href="/toms" class="logo">
+      <!-- mini logo for sidebar mini 50x50 pixels -->
+      <span class="logo-mini"><b>T</b>OMS</span>
+      <!-- logo for regular state and mobile devices -->
+      <span class="logo-lg"><b>T</b>OMS</span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top">
+      <!-- Sidebar toggle button-->
+      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+          <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">10</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have 10 notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  <li>
+                    <a href="#">
+                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                    </a>
+                  </li>
                 </ul>
-            </div>
-            <div class="page-content">
-                <div class="row">
-                    <div class="col-xs-12">
-                         <?php echo $contents; ?>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.page-content -->
-        </div>
-    </div><!-- END MAINBAR -->
-</div><!-- /.main-container -->
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li>
+          <!-- User Account: style can be found in dropdown.less -->
+          <li class="dropdown user user-menu">
+            <a href="#">
+              <img src="<?php echo base_url();?>assets/images/avatar2.png" class="user-image" alt="User Image">
+              <span class="hidden-xs"><? echo $session['loginname'] ?></span>
+            </a>
+          </li>
+          <!-- Control Sidebar Toggle Button -->
+          <li>
+            <a href="<?php echo base_url();?>cpanel/logout" alt="Sign Out" title="Sign Out" ><i class="fa fa-sign-out"></i></a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+  <!-- =============================================== -->
+  <!-- Left side column. contains the sidebar -->
+  <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+      <!-- Sidebar user panel -->
+      <!-- sidebar menu: : style can be found in sidebar.less -->
+      
+      <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        <li class="treeview">
+          <a href="/toms">
+            <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+          </a>
+        </li>
+        <?php 
+			//$session = $this->session->userdata('logged_in');
+			$groupId = $session['groupId'];
+			
+			//$tt = str_replace("/","",$_SERVER['REQUEST_URI']);
+			$multilevel = $this->groupuser_model->all_menu($parent=0,$groupId);
+			//recursive menu
+			function print_recursive_menu($data)
+			{
+				$str = "";
+				$tt = str_replace("/toms/","",$_SERVER['REQUEST_URI']);
+				foreach($data as $list)
+				{
+					#echo $tt."--".$list['moduleUrl']."<br>";
+					if($tt == $list['moduleUrl']) $str .="<li class='active'>";
+					else $str .="<li class=''>";
+					$str .= "<a href=".base_url()."".$list['moduleUrl'].">";
+					$str .= "<i class='fa fa-circle-o'></i> ".$list['menuName']."</a>";
+					$subchild = print_recursive_menu($list['parentId']);
+					if($subchild != '')
+						$str .= "<ul class=treeview-menu>".$subchild."</ul>";
+					$str .= "</li>";
+				}
+				return $str;
+			}
+			foreach ($multilevel as $data)
+			 {
+				 echo '<li class="treeview active">';
+				 echo '<a href="#"><i class="fa fa-bookmark"></i>';
+				 echo '<span>'.$data['menuName'].'</span>';
+				 echo '<span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>';
+				 echo '<ul class="treeview-menu">';
+				 echo print_recursive_menu($data['parentId']);
+				 echo '</ul>';
+			 }
+		?>
+      </ul>
+    </section>
+    <!-- /.sidebar -->
+  </aside>
+  <!-- =============================================== -->
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        <?php echo $title;?>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active"><?php echo $title;?></li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+	  <?php echo $contents; ?>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+      <b>Version</b> 1.0
+    </div>
+    <strong>Copyright &copy; 2017 TOMS</strong> All rights reserved.
+  </footer>
+</div>
+<!-- ./wrapper -->
+<script src="<?php echo base_url(); ?>assets/js/slimScroll/jquery.slimscroll.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/fastclick/fastclick.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/app.min.js"></script>
 </body>
 </html>
+

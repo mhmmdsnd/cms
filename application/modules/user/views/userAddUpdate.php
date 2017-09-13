@@ -1,5 +1,3 @@
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.ui.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
 <?php if ($_SERVER['PATH_INFO'] == "/user/create") { ?>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -60,82 +58,78 @@ $(document).ready(function(){
 	});
 });
 </script>
-<div class="widget-box">
-    <div class="widget-header widget-header-blue widget-header-flat">
-        <h4 class="widget-title lighter">Add / Update User</h4>
+<!-- Default box -->
+<div class="box">
+<div class="box-header with-border">
+  <h3 class="box-title">Add / Update Group</h3>
+</div>
+<form class="form-horizontal" method="post" id="user_form" name="user_form">
+<div class="box-body">
+     <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">First Name : </label>
+        <div class="col-xs-12 col-sm-9">
+            <div class="clearfix">
+                <input type="text" name="firstname" id="firstname" class="col-xs-12 col-sm-6" />
+            </div>
+        </div>
     </div>
-<div class="widget-body">
-    <div class="widget-main">
-        <div id="fuelux-wizard-container">
-            <div class="step-content pos-rel">
-            <form class="form-horizontal" method="post" id="user_form" name="user_form">
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">First Name : </label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="firstname" id="firstname" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Last Name : </label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="lastname" id="lastname" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Login Name : </label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="text" name="loginname" id="loginname" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">User Group : </label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <?php $extra = array('class' => 'input-medium'); echo form_dropdown("groupId",$getgroup,'',$extra) ?><br />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Location / Site : </label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                       		<?php $extra = array('class' => 'input-medium'); echo form_dropdown("lokasiId",$getlokasi,'',$extra) ?><br />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Password : </label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="password" name="password" id="password" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Confirm Password : </label>
-                    <div class="col-xs-12 col-sm-9">
-                        <div class="clearfix">
-                            <input type="password" name="repassword" id="repassword" class="col-xs-12 col-sm-6" />
-                        </div>
-                    </div>
-                </div>
-                <div class="wizard-actions">
-                <input type="submit" name="action" value="Save" class="btn btn-primary" />
-				<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>user');" />
-                </div>
-                </form>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Last Name : </label>
+        <div class="col-xs-12 col-sm-9">
+            <div class="clearfix">
+                <input type="text" name="lastname" id="lastname" class="col-xs-12 col-sm-6" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Login Name : </label>
+        <div class="col-xs-12 col-sm-9">
+            <div class="clearfix">
+                <input type="text" name="loginname" id="loginname" class="col-xs-12 col-sm-6" />
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <label class="control-label col-sm-3 no-padding-right" for="email">User Group : </label>
+        <div class="col-xs-12 col-sm-9">
+            <div class="clearfix">
+                <?php $extra = array('class' => 'col-xs-12 col-sm-6'); echo form_dropdown("groupId",$getgroup,'',$extra) ?><br />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Location / Site : </label>
+        <div class="col-xs-12 col-sm-9">
+            <div class="clearfix">
+                <?php $extra = array('class' => 'col-xs-12 col-sm-6'); echo form_dropdown("lokasiId",$getlokasi,'',$extra) ?><br />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Password : </label>
+        <div class="col-xs-12 col-sm-9">
+            <div class="clearfix">
+                <input type="password" name="password" id="password" class="col-xs-12 col-sm-6" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Confirm Password : </label>
+        <div class="col-xs-12 col-sm-9">
+            <div class="clearfix">
+                <input type="password" name="repassword" id="repassword" class="col-xs-12 col-sm-6" />
             </div>
         </div>
     </div>
 </div>
+<div class="box-footer">
+<input type="submit" name="action" value="Save" class="btn btn-primary" />
+<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>user');" />
 </div>
+</form>
+</div>
+
 <?php } else { ?>
 <script type="text/javascript">
 $(document).ready(function(){
