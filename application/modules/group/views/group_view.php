@@ -8,11 +8,11 @@ $(function() {
 <!-- Default box -->
 <div class="box">
 <div class="box-header with-border">
-  <h3 class="box-title">Group</h3>
+  <h3 class="box-title">Authorized</h3>
   <div class="box-tools pull-right">
   	<a href="<?php echo base_url();?>group/create">
     <button type="button" class="btn btn-info btn-sm" data-toggle="tooltip" title="Create">
-      Add New Group</button></a>
+      Add New Authorized</button></a>
   </div>
 </div>
 <div class="box-body">
@@ -20,7 +20,7 @@ $(function() {
 <thead>
     <tr>
     <th>No</th>
-    <th>Group Name</th>
+    <th>Authorized Name</th>
     <th>Action</th>
     </tr>
 </thead>

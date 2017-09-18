@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap.min.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/font-awesome/4.5.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/ionicons.min.css">
-  <link href="<?php echo base_url();?>assets/css/dataTables.bootstrap.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/css/dataTables.bootstrap.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/AdminLTE.min.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/skins/skin-blue.css">
   <link rel="stylesheet" href="<?php echo base_url();?>assets/css/blue.css">
@@ -23,6 +23,8 @@
     <script src="<?php echo base_url();?>assets/js/dataTables.bootstrap.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/icheck.min.js"></script>
    	<script src="<?php echo base_url();?>assets/js/select2.full.min.js"></script>
+   	<script src="<?php echo base_url();?>assets/js/Chart.min.js"></script>
+   	<script src="<?php echo base_url();?>assets/js/fastclick/fastclick.js"></script>
   <? 	$session = $this->session->userdata('logged_in'); ?>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">

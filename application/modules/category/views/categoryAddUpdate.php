@@ -1,84 +1,83 @@
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.ui.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.validate.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#product_form").validate({
+	$("#category_form").validate({
+		errorElement: 'div',
+		errorClass: 'help-block',
+		focusInvalid: false,
+		ignore: "",
 		rules: {
-			productCode: {
-				required:true
-			},
-			productName: {
-				required:true
-			},
-			prodtypeId: {
+			categoryName: {
 				required:true
 			}
+		},
+		messages : {
+			categoryName: {
+				required:"Insert Category Name."
+			}
+		},
+		highlight: function (e) {
+			$(e).closest('.form-group').removeClass('has-info').addClass('has-error');
+		},
+		success: function (e) {
+			$(e).closest('.form-group').removeClass('has-error');//.addClass('has-info');
+			$(e).remove();
+		},
+		errorPlacement: function (error, element) {
+			error.insertAfter(element.parent());
+		},
+		submitHandler: function (form) {
+		},
+		invalidHandler: function (form) {
 		}
 	});
 });
 </script>
-<?php if ($_SERVER['REQUEST_URI'] == "/cms/product/create") { ?>
-<div class="col-lg-12">
-<div class="panel panel-default">
-	<div class="panel-heading">Add / Update</div>
-	<div class="panel-body">
-    <div class="row">
-    	<div class="col-lg-6">
-        <form method="post" id="product_form" name="product_form" enctype="multipart/form-data">
-        <div class="form-group">
-        <label>Product Code</label>
-        <input id="productCode" name="productCode" type="text" maxlength="25" class="form-control" value="" />
-        <label>Product Name</label>
-		<input id="productName" name="productName" type="text" maxlength="60" class="form-control" value="" />
-		<label>Product Type</label>
-        <?php $extra = array('class' => 'form-control'); echo form_dropdown('prodtypeId',$dropdown,'',$extra); ?>
-        <label>Product Desc</label>
-		<textarea id="productdesc" name="productdesc" class="form-control"></textarea>
-		<label>Quantity</label>
-		<input id="productqty" name="productqty" type="text" maxlength="20" class="form-control" value="" /><br>
-		<label>Price</label>
-		<input id="productprice" name="productprice" type="text" maxlength="20" class="form-control" value="" /><br>
-		<input type="submit" name="action" value="Save" class="btn btn-primary" />
-		<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>product');" />
-        </div>
-        </form>
+<?php if ($_SERVER['PATH_INFO'] == "/category/create") { ?>
+<!-- Default box -->
+<div class="box">
+<div class="box-header with-border">
+  <h3 class="box-title">Add / Update Category</h3>
+</div>
+<form class="form-horizontal" method="post" id="category_form" name="category_form">
+<div class="box-body">
+    <div class="form-group">
+        <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Category Name : </label>
+        <div class="col-xs-12 col-sm-9">
+            <div class="clearfix">
+                <input type="text" name="categoryName" id="categoryName" class="col-xs-12 col-sm-6" />
+            </div>
         </div>
     </div>
-    </div>
-</div>                       
+</div>
+<div class="box-footer">
+<input type="submit" name="action" value="Save" class="btn btn-primary" />
+<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>category');" />
+</div>
+</form>
 </div>
 
 <?php } else { ?>
-
-<div class="col-lg-12">
-<div class="panel panel-default">
-	<div class="panel-heading">Add / Update</div>
-	<div class="panel-body">
-    <div class="row">
-    	<div class="col-lg-6">
-        <form method="post" id="product_form" name="product_form" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $detail->ProductId ?>" />
-        <div class="form-group">
-        <label>Product Code</label>
-        <input id="productCode" name="productCode" type="text" maxlength="25" class="form-control" value="<?php echo $detail->ProductCode ?>" />
-        <label>Product Name</label>
-		<input id="productName" name="productName" type="text" maxlength="60" class="form-control" value="<?php echo $detail->ProductName ?>" />
-		<label>Product Type</label>
-        <?php $extra = array('class' => 'form-control'); echo form_dropdown('prodtypeId',$dropdown,$detail->ProductType,$extra); ?>
-        <label>Product Desc</label>
-		<textarea id="productdesc" name="productdesc" class="form-control"><?php echo $detail->ProductDesc ?></textarea>
-		<label>Quantity</label>
-		<input id="productqty" name="productqty" type="text" maxlength="20" disabled="disabled" class="form-control" value="<?php echo $detail->productQty ?>" /><br>
-		<label>Price</label>
-		<input id="productprice" name="productprice" type="text" maxlength="20" class="form-control" value="<?php echo $detail->ProductPrice ?>" /><br>
-		<input type="submit" name="action" value="Update" class="btn btn-primary" />
-		<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>product');" />
-        </div>
-        </form>
-        </div>
-    </div>
-    </div>
-</div>                       
+<!-- Default box -->
+<div class="box">
+<div class="box-header with-border">
+  <h3 class="box-title">Add / Update Category</h3>
 </div>
-
+<form class="form-horizontal" method="post" id="category_form" name="category_form">
+<input type="hidden" name="id" value="<?php echo $detail->id?>" />
+<div class="box-body">
+<div class="form-group">
+    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Category Name : </label>
+    <div class="col-xs-12 col-sm-9">
+        <div class="clearfix">
+            <input type="text" name="categoryName" id="categoryName" class="col-xs-12 col-sm-6" value="<?php echo $detail->name ?>"/>
+        </div>
+    </div>
+</div>
+</div>
+<div class="box-footer">
+<input type="submit" name="action" value="Update" class="btn btn-primary" />
+<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>category');" />
+</div>
+</form>
+</div>
 <?php } ?>

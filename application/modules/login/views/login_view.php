@@ -21,7 +21,7 @@
             <p id="profile-name" class="profile-name-card"></p>
              <form class="form-signin" id="login" method="post" autocomplete="off">
                 <span id="reauth-email" class="reauth-email"></span>
-                <input type="text" id="loginname" name="loginname" class="form-control" placeholder="Email address" required autofocus>
+                <input type="text" id="loginname" name="loginname" class="form-control" placeholder="Username" required autofocus>
                 <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" id="action" type="submit">Sign in</button>
                  <div id="error" align="center">&nbsp;</div>

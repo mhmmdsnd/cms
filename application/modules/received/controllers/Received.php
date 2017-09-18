@@ -1,82 +1,84 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 #session_start(); //we need to call PHP's session object to access it through CI
-class Order extends CI_Controller {
-	
-	function __construct()
-	{
-	   parent::__construct();
-		$this->load->model('mstproduct_model');
-		$this->load->model('trnorder_model');
-		$this->load->helper('form');
-		$this->load->helper('number');
-	}
-	function index()
-	{
-		$data['listproduct'] = $this->mstproduct_model->product_front();
-		// load view
-		$this->template->set('title','Product :: List Product');
-		$this->template->load('front/vw_Home','order_list',$data);
-	}
-	function detail($id)
-	{
-		$data['detail'] = $this->mstproduct_model->product_get_by_id($id)->row();
+class Received extends CI_Controller {
 
-		#UPDATE VIEW
-		$this->trnorder_model->productView($id);
-		
-		// load view
-		$this->template->set('title','Product :: View Product');
-		$this->template->load('front/vw_Home','order_view',$data);
-	}
-	function create($id)
-	{
-        if($this->session->userdata('member_in')) {
-            $data['detail'] = $this->mstproduct_model->product_get_by_id($id)->row();
-            $data['orderdetail'] = $this->session->userdata('member_in');
+    private $limit = 10;
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model(Trntransfer_model::class);
+        $this->trntransfer = New Trntransfer_model();
 
-            if ($this->input->post('send_order')) {
-                #DATA ORDER
-                $ExpiredDate = date('Y-m-d', mktime(0, 0, 0, date(m), date(d) + 3, date(Y))); #EXPIRED DATE (ORDER)
-                $ticketId = mt_rand(111111, 999999); #NO TICKET ORDER
-                $data_order = array('orderPrice' => $this->input->post('orderPrice'),
-                    'orderItemId' => $id,
-                    'orderQty' => $this->input->post('orderQty'),
-                    'orderName' => $this->input->post('orderName'),
-                    'orderEmail' => $this->input->post('orderEmail'),
-                    'orderPhone' => $this->input->post('orderPhone'),
-                    'orderAddress' => $this->input->post('orderAddress'),
-                    'orderDate' => date('Y-m-d H:i:s'),
-                    'orderExpiredDate' => $ExpiredDate,
-                    'ticketId' => $ticketId,
-                    'createdDate' => date('Y-m-d H:i:s'), 'createdBy' => $this->input->post('orderName'));
-                $orderId = $this->trnorder_model->order_save($data_order);
-                #UPDATE STOK
-                $this->trnorder_model->update_stok($id, $this->input->post('orderQty'));
+        $this->load->helper('form');
+        $this->load->library('pagination');
+    }
+    function index($offset=0, $order_column='id', $order_type='desc')
+    {
+        if($this->session->userdata('logged_in'))
+        {
+            if (!$offset) $offset=0;
+            if (!$order_column) $order_column = 'id';
+            if (!$order_type) $order_type = 'desc';
 
-                redirect('order/confirm/' . $orderId);
-            }
+            $data['result'] = $this->trntransfer->transfer_paged_list($this->limit, $offset, $order_column, $order_type);
 
-            // load view
-            $this->template->set('title', 'Product :: Create New Order');
-            $this->template->load('front/vw_Home', 'order_create', $data);
+            $config['base_url']=site_url('received/index/');
+            $config['total_rows']=$this->trntransfer->transfer_count_all();
+            $config['per_page']=$this->limit;
+            $config['uri_segment']='3';
+            $this->pagination->initialize($config);
+            $data['paginator']=$this->pagination->create_links();
+
+            //table data
+            $this->template->set('title','Received TO :: List');
+            $this->template->load('cpanel/template','receivedList',$data);
         }
-        else {
-
-            $data['detail'] = $this->mstproduct_model->product_get_by_id($id)->row();
-
-            $this->template->set('title', 'Product :: Create New Order');
-            $this->template->load('front/vw_Home', 'member/order_login',$data);
+        else
+        {
+            //If no session, redirect to login page
+            redirect('login', 'refresh');
         }
-	}
-	function confirm($id)
-	{
-		$data['detail'] = $this->trnorder_model->order_detail($id)->row();
-		
-		// load view
-		$this->template->set('title','Order :: Order Confirmation');
-		$this->template->load('front/vw_Home','order_confirm',$data);
-	}
+    }
+    //FUNCTION UNTUK CREATE TRANSAKSI INVENTORY IN
+    function create ()
+    {
+        $session_data = $this->session->userdata('logged_in');
+        $data['loginname'] = $session_data['loginname'];
+
+        if($this->input->post('action')){
+            $data_inventoryin = array('transDate' => $this->input->post('transDate'),'transnumber'=> $this->input->post('transnumber'),
+                'supplierId'=> $this->input->post('supplierId'),'whId'=> $this->input->post('whId'),
+                'createdDate'=> date('Y-m-d H:i:s'),'createdBy'=> $session_data['loginname']);
+            //$inventoryinId = $this->trninventory_model->save($data_inventoryin);
+
+            //START INVENTORY ITEM
+            $count = count($this->input->post('itemId'));
+            /*for($i=0; $i<$count; $i++) {
+                $data_insert = array(
+                        'transId'=>$inventoryinId, 'itemId' => $_POST['itemId'][$i],'qty' => $_POST['qty'][$i],
+                        'price' => $_POST['price'][$i],'total' => $_POST['total'][$i]);
+                if ($_POST['itemId'][$i]) $this->trninventory_model->save_detail($data_insert);
+            }*/
+
+            //redirect
+            //redirect('inventory/index/');
+        }
+        // load view
+        $this->template->set('title','Received TO :: Create');
+        $this->template->load('cpanel/template','receivedAddUpdate',$data);
+    }
+    function update($id)
+    {
+        $session_data = $this->session->userdata('logged_in');
+        $data['loginname'] = $session_data['loginname'];
+        //data detail (header)
+        $data['detail'] = $this->trninventory_model->trans_by_id($id)->row();
+
+        // load view
+        $this->template->set('title','Received TO :: Update');
+        $this->template->load('cpanel/template','receivedAddUpdate',$data);
+    }
 	
 }
 ?>

@@ -30,7 +30,7 @@ class Group extends CI_Controller {
             $data['paginator']=$this->pagination->create_links();
             
             //table data
-            $this->template->set('title','Group');
+            $this->template->set('title','Authorized');
             $this->template->load('cpanel/template','group_view',$data);
         }
         else
@@ -59,7 +59,7 @@ class Group extends CI_Controller {
             redirect('group/index/');
         }
         // load view
-        $this->template->set('title','Group :: Add Group');
+        $this->template->set('title','Authorized :: Add Authorized');
         $this->template->load('cpanel/template','groupAddUpdate',$data);
     }
     
@@ -91,7 +91,7 @@ class Group extends CI_Controller {
             redirect('group/index/');
         }
         
-        $this->template->set('title','Group :: Edit Group');
+        $this->template->set('title','Authorized :: Edit Authorized');
         $this->template->load('cpanel/template','groupAddUpdate',$data);
     }/**/
     function delete ($id)

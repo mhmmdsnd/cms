@@ -37,6 +37,7 @@ function login () {
 
 //function member
 function member () {
+	var base_url = window.location;
 	hideshow('loading',1);
 	error(0);
 

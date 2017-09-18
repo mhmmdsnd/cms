@@ -42,7 +42,7 @@ $(document).ready(function(){
 <!-- Default box -->
 <div class="box">
 <div class="box-header with-border">
-  <h3 class="box-title">Add / Update Group</h3>
+  <h3 class="box-title">Add / Update Location</h3>
 </div>
 <form class="form-horizontal" method="post" id="location_form" name="location_form">
 <div class="box-body">
@@ -74,7 +74,7 @@ $(document).ready(function(){
 <!-- Default box -->
 <div class="box">
 <div class="box-header with-border">
-  <h3 class="box-title">Add / Update Group</h3>
+  <h3 class="box-title">Add / Update Location</h3>
 </div>
 <form class="form-horizontal" method="post" id="location_form" name="location_form">
 <input type="hidden" name="id" value="<?php echo $detail->id?>" />

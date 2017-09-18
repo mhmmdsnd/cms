@@ -40,12 +40,12 @@ $(document).ready(function(){
 <!-- Default box -->
 <div class="box box-default">
 <div class="box-header with-border">
-  <h3 class="box-title">Add / Update Group</h3>
+  <h3 class="box-title">Add / Update Authorized</h3>
 </div>
 <form class="form-horizontal" method="post" id="grpuser_form" name="grpuser_form">
 <div class="box-body">
     <div class="form-group">
-        <label class="control-label col-sm-2 no-padding-right">Group Name : </label>
+        <label class="control-label col-sm-2 no-padding-right">Authorized Name : </label>
         <div class="col-xs-6 col-sm-9">
             <div class="clearfix">
                 <input type="text" name="groupname" id="groupname" class="form-control" />
@@ -67,6 +67,21 @@ $(document).ready(function(){
       <td>Admin - Users</td>
       <td><input type="checkbox" class="minimal"></td>
     </tr>
+    <tr>
+      <td>2.</td>
+      <td>Admin - Authorized</td>
+      <td><input type="checkbox" class="minimal"></td>
+    </tr>
+    <tr>
+      <td>3.</td>
+      <td>Configuration - Location</td>
+      <td><input type="checkbox" class="minimal"></td>
+    </tr>
+    <tr>
+      <td>4.</td>
+      <td>Transfer Order - Create TO</td>
+      <td><input type="checkbox" class="minimal"></td>
+    </tr>
   </table>
 </div>
 <div class="box-footer">
@@ -80,13 +95,13 @@ $(document).ready(function(){
 <!-- Default box -->
 <div class="box">
 <div class="box-header with-border">
-  <h3 class="box-title">Add / Update Group</h3>
+  <h3 class="box-title">Add / Update Authorized</h3>
 </div>
 <form class="form-horizontal" method="post" id="grpuser_form" name="grpuser_form">
 <input id="groupid" name="groupid" type="hidden" value="<?php echo $detail->groupId ?>" />
 <div class="box-body">
     <div class="form-group">
-        <label class="control-label col-sm-2 no-padding-right">Group Name : </label>
+        <label class="control-label col-sm-2 no-padding-right">Authorized Name : </label>
         <div class="col-xs-6 col-sm-9">
             <div class="clearfix">
                 <input type="text" name="groupname" id="groupname" class="form-control" value="<?php echo $detail->groupName ?>"/>
@@ -106,6 +121,21 @@ $(document).ready(function(){
     <tr>
       <td>1.</td>
       <td>Admin - Users</td>
+      <td><input type="checkbox" class="minimal"></td>
+    </tr>
+    <tr>
+      <td>2.</td>
+      <td>Admin - Authorized</td>
+      <td><input type="checkbox" class="minimal"></td>
+    </tr>
+    <tr>
+      <td>3.</td>
+      <td>Configuration - Location</td>
+      <td><input type="checkbox" class="minimal"></td>
+    </tr>
+    <tr>
+      <td>4.</td>
+      <td>Transfer Order - Create TO</td>
       <td><input type="checkbox" class="minimal"></td>
     </tr>
   </table>
