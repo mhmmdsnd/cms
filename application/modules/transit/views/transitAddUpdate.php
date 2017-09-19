@@ -7,7 +7,7 @@ $(document).ready(function(){
 <!-- START UPDATE FORM REQUEST CHILLER -->
 <div class="box">
 <div class="box-header with-border">
-  <h3 class="box-title">Received Transfer Order #TO532544 </h3>
+  <h3 class="box-title">Transit Transfer Order #TO532544 </h3>
 </div>
 <form class="form-horizontal" method="post" id="inventoryin_form" name="inventoryin_form">
 <div class="box-body">
@@ -33,6 +33,15 @@ $(document).ready(function(){
          <input type="text" class="form-control" disabled="disabled" value="2" >
       </div>
       <div class="form-group">
+        <label>Status Package</label>
+         <select class="form-control" style="width: 100%;">
+          <option selected="selected">Good</option>
+          <option>Scratch</option>
+          <option>Damage</option>
+          <option>Missing</option>
+        </select>
+      </div>
+      <div class="form-group">
         <label>Description</label>
          <textarea name="test" class="form-control">BARANG SUDAH DITERIMA DENGAN BAIK</textarea>
       </div>
@@ -55,40 +64,10 @@ $(document).ready(function(){
 </div>
 <!-- /.col (right) -->
 </div>
-<!-- iCheck -->
-    <div class="box-header with-border">
-      <h3 class="box-title">List of Transit</h3>
-    </div>
-    <table class="table table-bordered">
-    <tr>
-      <th style="width: 10px">#</th>
-      <th>Transit</th>
-      <th>Description</th>
-      <th>Status Package</th>
-    </tr>
-    <tr>
-      <td>1.</td>
-      <td>JKT - Jakarta</td>
-      <td>DITERIMA DENGAN BAIK</td>
-      <td>Good</td>
-    </tr>
-    <tr>
-      <td>2.</td>
-      <td>BDG - Bandung</td>
-      <td>DITERIMA DENGAN BAIK</td>
-      <td>Good</td>
-    </tr>
-    <tr>
-      <td>3.</td>
-      <td>SUB - Surabaya</td>
-      <td>DITERIMA DENGAN BAIK</td>
-      <td>Good</td>
-    </tr>
-  </table>
 </div>
 <div class="box-footer">
-<input type="submit" name="action" value="Received" class="btn btn-primary" />
-<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>received');" />
+<input type="submit" name="action" value="Proceed" class="btn btn-primary" />
+<input type="button" value="Cancel" class="btn btn-primary" onclick="document.location.replace('<?php echo base_url();?>transit');" />
 </div>
 </form>
 </div>

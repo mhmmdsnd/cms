@@ -52,7 +52,7 @@ Class Groupuser_model extends CI_Model
     {
     	$getmod = array();
     	$this->db->from($this->table_module);
-    	//$this->db->where('parentId !=',$parent);
+    	$this->db->where('parentId !=',$parent);
     	$result = $this->db->get();
     	foreach ($result->result() as $rst)
     	{
@@ -60,8 +60,19 @@ Class Groupuser_model extends CI_Model
     				'parentName'=>$rst->parentName);
     	}
     	return $getmod;
-        //return $this->db->get('sys_module');
-        
+    }
+    function get_akses ($groupId)
+    {
+        $getmod = array();
+        $this->db->from($this->table_groupusers);
+        $this->db->join($this->table_module,$this->table_groupusers.'.moduleId = '.$this->table_module.'.menuId','inner');
+        $this->db->where('groupId',$groupId);
+        $result = $this->db->get();
+        foreach ($result->result() as $rst)
+        {
+            $getmod[] = array('menuId' =>$rst->menuId);
+        }
+        return $getmod;
     }
     function get_menu()
     {

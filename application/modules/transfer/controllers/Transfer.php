@@ -7,6 +7,9 @@ class Transfer extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+        $this->load->model(Master_model::class);
+        $this->master_model = New Master_model();
+
 		$this->load->model(Trntransfer_model::class);
         $this->trntransfer = New Trntransfer_model();
 
@@ -45,6 +48,7 @@ class Transfer extends CI_Controller {
 	{
 		$session_data = $this->session->userdata('logged_in');
 		$data['loginname'] = $session_data['loginname'];
+        $data['getlokasi'] = $this->master_model->lokasi_lookup();
 		
 		if($this->input->post('action')){
 			$data_inventoryin = array('transDate' => $this->input->post('transDate'),'transnumber'=> $this->input->post('transnumber'),

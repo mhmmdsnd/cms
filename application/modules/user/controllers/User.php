@@ -48,7 +48,7 @@ class User extends CI_Controller {
 	 if($this->input->post('action')){
 		$data_user = array('firstname' => $this->input->post('firstname'),'lastname' => $this->input->post('lastname'),
 							'loginname' => $this->input->post('loginname'),'groupId' => $this->input->post('groupId'),
-							'lokasiId' => $this->input->post('lokasiId'),'password' => md5($this->input->post('password')));
+							'locationId' => $this->input->post('lokasiId'),'password' => md5($this->input->post('password')));
 		$id = $this->user_model->save($data_user);
 		//validasi ID
 		$this->validation->id = $id;
@@ -71,7 +71,7 @@ class User extends CI_Controller {
 		$id = $this->input->post('id');
 		$data_user = array('firstname' => $this->input->post('firstname'),'lastname' => $this->input->post('lastname'),
                             'loginname' => $this->input->post('loginname'),'groupId' => $this->input->post('groupId'),
-							'lokasiId' => $this->input->post('lokasiId'));
+							'locationId' => $this->input->post('lokasiId'));
         $this->user_model->update($id,$data_user);
         
         if ($_POST['password']) {

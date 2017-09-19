@@ -29,9 +29,9 @@
     <?php $urut=1; foreach ($result->result_array() as $list) { ?>
       <tr> 
         <td><?php echo $urut++; ?></td>
-        <td><?php echo $list['code'] ?></td>
-        <td><?php echo $list['name'] ?></td>
-        <td><a href="<?php echo base_url();?>location/update/<?php echo $list['id'] ?>"><img src="<?php echo base_url();?>assets/images/edit.png" alt="Edit" border="0" title="Edit" /></a></a> <a OnClick="return confirm('Are you delete this data?');" href="<?php echo base_url();?>location/delete/<?php echo $list['id'] ?>"><img src="<?php echo base_url();?>assets/images/delete.png" alt="Delete" border="0" title="Delete" /></a></td>
+        <td><?php echo $list['kode'] ?></td>
+        <td><?php echo $list['nama'] ?></td>
+        <td><a href="<?php echo base_url();?>location/update/<?php echo $list['id'] ?>"><img src="<?php echo base_url();?>assets/images/edit.png" alt="Edit" border="0" title="Edit" /></a><a OnClick="return confirm('Are you delete this data?');" href="<?php echo base_url();?>location/delete/<?php echo $list['id'] ?>"><img src="<?php echo base_url();?>assets/images/delete.png" alt="Delete" border="0" title="Delete" /></a></td>
       </tr>
       <?php } ?>
 </tbody>

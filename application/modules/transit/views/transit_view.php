@@ -1,6 +1,6 @@
 <script>
     $(document).ready(function() {
-        $('#dataTables-transfer').DataTable({
+        $('#dataTables-transit').DataTable({
                 responsive: true
         });
     });
@@ -8,12 +8,12 @@
 <!-- Default box -->
 <div class="box">
 <div class="box-header with-border">
-  <h3 class="box-title">Received TO</h3>
+  <h3 class="box-title">Transit TO</h3>
   <div class="box-tools pull-right">
   </div>
 </div>
 <div class="box-body">
-<table class="table table-striped table-bordered table-hover" id="dataTables-transfer">
+<table class="table table-striped table-bordered table-hover" id="dataTables-transit">
     <thead>
         <tr>
         <th>No</th>
@@ -21,6 +21,9 @@
         <th>TO Date</th>
         <th>From</th>
         <th>Destination</th>
+        <?php for($i=0;$i<5;$i++) { $j=$i+1; ?>
+        <th>Transit ke <? echo $j ?></th>
+        <? } ?>
         <th>Status</th>	
         <th>Action</th>
         </tr>
@@ -30,10 +33,16 @@
         <td>1</td>
         <td>TO532544</td>
         <td><? echo date('d-m-Y'); ?></td>
-        <td>MDN - Medan</td>
+        <td>BDG - Bandung</td>
         <td>DPS - Denpasar</td>
+        <?php for($i=0;$i<5;$i++) { $j=$i+1; ?>
+        <td><? if($j <= 3) { ?>
+			Sudah ditransit<br />
+        	Penerima : Adam
+			<? } ?></td>
+        <? } ?>
         <td>Transit</td>	
-        <td><a href="<?php echo base_url();?>received/update/2"><img src="<?php echo base_url();?>assets/images/edit.png" alt="Received" border="0" title="Received" /></a></td>
+        <td><a href="<?php echo base_url();?>transit/update/2"><img src="<?php echo base_url();?>assets/images/edit.png" alt="Received" border="0" title="Received" /></a></td>
         </tr>
         <tr>
         <td>2</td>
@@ -41,7 +50,12 @@
         <td><? echo date('d-m-Y'); ?></td>
         <td>MDN - Medan</td>
         <td>DPS - Denpasar</td>
-        <td>Transit</td>	
+        <?php for($i=0;$i<5;$i++) { $j=$i+1; ?>
+        <td><? if($j <= 1) { ?>
+			Sudah ditransit<br />
+        	Penerima : Anggi
+			<? } ?></td>
+        <? } ?><td>Transit</td>	
         <td><a href="#"><img src="<?php echo base_url();?>assets/images/edit.png" alt="Received" border="0" title="Received" /></a></td>
         </tr>
         <tr>
@@ -50,7 +64,12 @@
         <td><? echo date('d-m-Y'); ?></td>
         <td>JKT - Jakarta</td>
         <td>DPS - Denpasar</td>
-        <td>Transit</td>	
+        <?php for($i=0;$i<5;$i++) { $j=$i+1; ?>
+        <td><? if($j <= 2) { ?>
+			Sudah ditransit<br />
+        	Penerima : Joni
+			<? } ?></td>
+        <? } ?><td>Transit</td>	
         <td><a href="#"><img src="<?php echo base_url();?>assets/images/edit.png" alt="Received" border="0" title="Received" /></a></td>
         </tr>
     </tbody>

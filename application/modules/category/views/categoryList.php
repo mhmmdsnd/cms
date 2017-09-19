@@ -25,7 +25,13 @@
         </tr>
     </thead>
     <tbody>
-        
+        <?php $urut=1; foreach ($result->result_array() as $list) { ?>
+      <tr> 
+        <td><?php echo $urut++; ?></td>
+        <td><?php echo $list['name'] ?></td>
+        <td><a href="<?php echo base_url();?>category/update/<?php echo $list['id'] ?>"><img src="<?php echo base_url();?>assets/images/edit.png" alt="Edit" border="0" title="Edit" /></a><a OnClick="return confirm('Are you delete this data?');" href="<?php echo base_url();?>category/delete/<?php echo $list['id'] ?>"><img src="<?php echo base_url();?>assets/images/delete.png" alt="Delete" border="0" title="Delete" /></a></td>
+      </tr>
+      <?php } ?>
     </tbody>
     </table>
 </div>

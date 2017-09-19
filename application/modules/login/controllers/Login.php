@@ -37,10 +37,12 @@ class Login extends CI_Controller {
 				foreach($result as $row)
 				{
 					$sess_array = array(
-					 'id' => $row->id,
-					 'loginname' => $row->loginname,
-					'groupId'=>$row->groupId);
-					 
+					 'id' => $row->id,'loginname' => $row->loginname,
+					'groupId'=>$row->groupId,'locationId'=>$row->locationId);
+
+					$data_user = array('lastlogindate' => date('Y-m-d H:i:s'));
+					$this->user_model->update($row->id,$data_user);
+
 					$this->session->set_userdata('logged_in', $sess_array);
 					//array_push($response[login],$sess_array);
 				}

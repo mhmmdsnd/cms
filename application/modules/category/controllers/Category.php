@@ -20,10 +20,10 @@ class Category extends CI_Controller {
             if (!$order_column) $order_column = 'id';
             if (!$order_type) $order_type = 'asc';
 
-            $data['result'] = $this->master_model->lokasi_get_paged_list($this->limit,$offset, $order_column, $order_type);
+            $data['result'] = $this->master_model->category_get_paged_list($this->limit,$offset, $order_column, $order_type);
 
             $config['base_url']=site_url('category/index/');
-            $config['total_rows']= $this->master_model->lokasi_count_all();
+            $config['total_rows']= $this->master_model->category_count_all();
             $config['per_page']=$this->limit;
             $config['uri_segment']='3';
             $this->pagination->initialize($config);
@@ -43,6 +43,15 @@ class Category extends CI_Controller {
     {
         if($this->session->userdata('logged_in'))
         {
+            if($this->input->post('action')){
+                $data_user = array('name' => $this->input->post('categoryName'));
+                $id = $this->master_model->category_save($data_user);
+                //validasi ID
+                $this->validation->id = $id;
+                //redirect
+                redirect('category/index/');
+            }
+
             $this->template->set('title','Category :: Add Category');
             $this->template->load('cpanel/template','categoryAddUpdate');
         }
@@ -55,6 +64,17 @@ class Category extends CI_Controller {
     {
         if($this->session->userdata('logged_in'))
         {
+            $data['detail'] = $this->master_model->category_get_by_id($id)->row();
+
+            if($this->input->post('action')){
+                $id = $this->input->post('id');
+                $data_user = array('name' => $this->input->post('categoryName'));
+                $id = $this->master_model->category_update($id,$data_user);
+                //validasi ID
+                $this->validation->id = $id;
+                //redirect
+                redirect('category/index/');
+            }
             $this->template->set('title','Category :: Edit Category');
             $this->template->load('cpanel/template','categoryAddUpdate');
         }
@@ -67,7 +87,8 @@ class Category extends CI_Controller {
     {
         if($this->session->userdata('logged_in'))
         {
-
+            $this->master_model->category_delete($id);
+            redirect('category/index/', 'refresh');
         }
         else
         {

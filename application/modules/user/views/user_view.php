@@ -21,7 +21,7 @@ $(document).ready(function() {
     <tr>
     <th>No</th>
     <th>Loginname</th>
-    <th>Groups</th>
+    <th>Authorized</th>
     <th>Location</th>
     <th>Last Login Date</th>
     <th>Action</th>
@@ -32,8 +32,8 @@ $(document).ready(function() {
     <tr>
     <td><?php echo $urut++ ?></td>
     <td><?php echo $list['loginname'] ?></td>
-    <td><?php echo $list['groupId'] ?></td>
-    <td><?php echo $list['locationId'] ?></td>
+    <td><?php echo $list['groupName'] ?></td>
+    <td><?php echo $list['nama'] ?></td>
     <td><?php echo $list['lastlogindate'] ?></td>
     <td><a href="<?php echo base_url();?>user/update/<?php echo $list['id'] ?>"><img src="<?php echo base_url();?>assets/images/edit.png" alt="Edit" border="0" title="Edit" /></a> <a OnClick="return confirm('Are you delete this data?');" href="<?php echo base_url();?>user/delete/<?php echo $list['id'] ?>"><img src="<?php echo base_url();?>assets/images/delete.png" alt="Delete" border="0" title="Delete" /></a></td>							
     </tr>

@@ -1,4 +1,3 @@
-<?php if ($_SERVER['PATH_INFO'] == "/group/create") { ?>
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#grpuser_form").validate({
@@ -27,6 +26,7 @@ $(document).ready(function(){
 			error.insertAfter(element.parent());
 		},
 		submitHandler: function (form) {
+			form.submit();
 		},
 		invalidHandler: function (form) {
 		}
@@ -37,6 +37,7 @@ $(document).ready(function(){
     });
 });
 </script>
+<?php if ($_SERVER['PATH_INFO'] == "/group/create") { ?>
 <!-- Default box -->
 <div class="box box-default">
 <div class="box-header with-border">
@@ -62,26 +63,13 @@ $(document).ready(function(){
       <th>Module - Menu</th>
       <th>Access</th>
     </tr>
+    <? $urut=1; foreach($getmodule as $listmodule) { ?>
     <tr>
-      <td>1.</td>
-      <td>Admin - Users</td>
-      <td><input type="checkbox" class="minimal"></td>
+      <td><? echo $urut; ?></td>
+      <td><? echo $listmodule['parentName']." - ". $listmodule['menuName'] ?> </td>
+      <td><input type="hidden" name="menuId[<? echo $urut; ?>]" value="<? echo $listmodule['menuId'] ?>" /><input type="checkbox" name="access[<? echo $urut; ?>]" value="1" class="minimal"></td>
     </tr>
-    <tr>
-      <td>2.</td>
-      <td>Admin - Authorized</td>
-      <td><input type="checkbox" class="minimal"></td>
-    </tr>
-    <tr>
-      <td>3.</td>
-      <td>Configuration - Location</td>
-      <td><input type="checkbox" class="minimal"></td>
-    </tr>
-    <tr>
-      <td>4.</td>
-      <td>Transfer Order - Create TO</td>
-      <td><input type="checkbox" class="minimal"></td>
-    </tr>
+    <? $urut++; } ?>
   </table>
 </div>
 <div class="box-footer">
@@ -118,26 +106,13 @@ $(document).ready(function(){
       <th>Module - Menu</th>
       <th>Access</th>
     </tr>
+    <? $urut=1; foreach($getmodule as $listmodule) { ?>
     <tr>
-      <td>1.</td>
-      <td>Admin - Users</td>
-      <td><input type="checkbox" class="minimal"></td>
+      <td><? echo $urut; ?></td>
+      <td><? echo $listmodule['parentName']." - ". $listmodule['menuName'] ?> </td>
+      <td><input type="hidden" name="menuId[<? echo $urut; ?>]" value="<? echo $listmodule['menuId'] ?>" /><input type="checkbox" name="access[<? echo $urut; ?>]" value="1" class="minimal"></td>
     </tr>
-    <tr>
-      <td>2.</td>
-      <td>Admin - Authorized</td>
-      <td><input type="checkbox" class="minimal"></td>
-    </tr>
-    <tr>
-      <td>3.</td>
-      <td>Configuration - Location</td>
-      <td><input type="checkbox" class="minimal"></td>
-    </tr>
-    <tr>
-      <td>4.</td>
-      <td>Transfer Order - Create TO</td>
-      <td><input type="checkbox" class="minimal"></td>
-    </tr>
+    <? $urut++; } ?>
   </table>
 </div>
 <div class="box-footer">

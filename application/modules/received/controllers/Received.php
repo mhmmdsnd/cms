@@ -73,11 +73,11 @@ class Received extends CI_Controller {
         $session_data = $this->session->userdata('logged_in');
         $data['loginname'] = $session_data['loginname'];
         //data detail (header)
-        $data['detail'] = $this->trninventory_model->trans_by_id($id)->row();
+        //$data['detail'] = $this->trninventory_model->trans_by_id($id)->row();
 
         // load view
         $this->template->set('title','Received TO :: Update');
-        $this->template->load('cpanel/template','receivedAddUpdate',$data);
+        $this->template->load('cpanel/template','receivedAddUpdate');
     }
 	
 }

@@ -1,31 +1,33 @@
 <?php
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-Class Invoice extends CI_Controller{
+Class Transit extends CI_Controller{
 	
 	private $limit = 10;
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('trnorder_model');
+        $this->load->model(Trntransfer_model::class);
+        $this->trntransfer = New Trntransfer_model();
+
 		$this->load->library('pagination');		
 	}
-	function index($offset=0, $order_column='orderId', $order_type='asc')
+	function index($offset=0, $order_column='id', $order_type='asc')
 	{
 		if (!$offset) $offset=0;
-		if (!$order_column) $order_column = 'orderId';
+		if (!$order_column) $order_column = 'id';
 		if (!$order_type) $order_type = 'desc';
 
-		$data['result'] = $this->trnorder_model->order_paged_list($this->limit, $offset, $order_column, $order_type);
+		$data['result'] = $this->trntransfer->transfer_paged_list($this->limit, $offset, $order_column, $order_type);
 		$config['base_url']=site_url('invoice/index/');
-		$config['total_rows']=$this->trnorder_model->order_count_all();
+		$config['total_rows']=$this->trntransfer->transfer_count_all();
 		$config['uri_segment']='3';
 		//$config['per_page']=$this->limit;
 		$this->pagination->initialize($config);
 		$data['paginator']=$this->pagination->create_links();
 	
 		#table data
-		$this->template->set('title','Inventory Out :: List');
-		$this->template->load('cpanel/template','invoice_view',$data);
+		$this->template->set('title','Transit TO :: List');
+		$this->template->load('cpanel/template','transit_view',$data);
 	
 	}
 	function create()
@@ -71,6 +73,17 @@ Class Invoice extends CI_Controller{
 		$this->template->set('title','Inventory Out :: Detail');
 		$this->template->load('cpanel/template','invoice_detail',$data);
 	}
+    function update($id)
+    {
+        $session_data = $this->session->userdata('logged_in');
+        $data['loginname'] = $session_data['loginname'];
+        //data detail (header)
+        //$data['detail'] = $this->trninventory_model->trans_by_id($id)->row();
+
+        // load view
+        $this->template->set('title','Transit TO :: Update');
+        $this->template->load('cpanel/template','transitAddUpdate');
+    }
 	function approve($id)
 	{
 		$this->trnorder_model->order_proses($id,1);

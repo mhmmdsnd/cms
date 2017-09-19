@@ -3,9 +3,10 @@ Class User_model extends CI_Model
 {
 	private $table_name = 'sys_users';
     private $table_group = 'sys_group';
+    private $table_lokasi = 'mst_location';
 	function login ($loginname,$password)
 	{
-		$this->db->select('id, loginname, password, groupId');
+		$this->db->select('id, loginname, password, groupId, locationId');
 		$this->db->from ($this->table_name);
 		$this->db->where ('loginname = '."'".$loginname."'" .'and password = '."'".md5($password)."'");
 		$this->db->where ('password = '."'".md5($password)."'");
@@ -22,13 +23,17 @@ Class User_model extends CI_Model
 	}
 	function get_paged_list ($limit=10,$offset=0, $order_column='',$order_type='asc')
 	{
-        $where = array('id!='=>1);
+        $where = array($this->table_name.'.id!='=>1);
+        $this->db->select($this->table_name.'.id, loginname, groupName, nama, lastlogindate ');
+        $this->db->from($this->table_name);
+        $this->db->join($this->table_group,$this->table_name.'.groupId = '.$this->table_group.'.groupId','left');
+        $this->db->join($this->table_lokasi,$this->table_name.'.locationId = '.$this->table_lokasi.'.id','left');
         $this->db->where($where);
         if (empty($order_column)||empty($order_type))
-		$this->db->order_by('id','asc');
+		$this->db->order_by($this->table_name.'.id','asc');
 		else 
 		$this->db->order_by($order_column,$order_type);
-		return $this->db->get($this->table_name,$limit,$offset);
+		return $this->db->get();
 	}
 	function count_all()
 	{

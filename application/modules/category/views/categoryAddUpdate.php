@@ -26,6 +26,7 @@ $(document).ready(function(){
 			error.insertAfter(element.parent());
 		},
 		submitHandler: function (form) {
+			form.submit();
 		},
 		invalidHandler: function (form) {
 		}

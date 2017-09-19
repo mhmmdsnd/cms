@@ -29,23 +29,33 @@
         </tr>
     </thead>
     <tbody>
-    <?php for($i=0;$i<count($result);$i++) { $j = $i+1; ?>
-      <tr> 
-        <td><?php echo $j ?></td>
-        <td><?php echo $result[$i]['transnumber'] ?></td>
-        <td><?php echo $result[$i]['transdate'] ?></td>
-        <td><?php echo $result[$i]['suppliername'] ?></td>
-        <td><?php echo $result[$i]['whName'] ?></td>
-        <td><?php echo $result[$i]['transstatus'] ?></td>
-        <td>
-        <?php if ($result[$i]['transstatus'] == 1) { ?>
-        <a href="<?php echo base_url();?>inventory/approval/<?php echo $result[$i]['transId'] ?>"><img src="<?php echo base_url();?>assets/public/themes/default/images/checked.png" alt="Approval" border="0" title="Approval" /></a>
-        <a href="<?php echo base_url();?>inventory/reject/<?php echo $result[$i]['transId'] ?>"><img src="<?php echo base_url();?>assets/public/themes/default/images/cancel.png" alt="Reject" border="0" title="Reject" /></a>
-        <?php } else { ?>
-        <a href="<?php echo base_url();?>inventory/review/<?php echo $result[$i]['transId'] ?>"><img src="<?php echo base_url();?>assets/public/themes/default/images/review.png" alt="Review" border="0" title="Review" /></a> <?php } ?> 
-        <?php if ($result[$i]['transstatus'] == 1) { ?> <a href="<?php echo base_url();?>inventory/update/<?php echo $result[$i]['transId'] ?>"><img src="<?php echo base_url();?>assets/public/themes/default/images/edit.png" alt="Edit" border="0" title="Edit" /></a> <a OnClick="return confirm('Are you delete this data?');" href="<?php echo base_url();?>inventoryin/delete/<?php echo $result[$i]['transId'] ?>"><img src="<?php echo base_url();?>assets/public/themes/default/images/delete.png" alt="Delete" border="0" title="Delete" /></a><?php } ?></td>
+      <tr>
+        <td>1</td>
+        <td>TO532544</td>
+        <td><? echo date('d-m-Y'); ?></td>
+        <td>BDG - Bandung</td>
+        <td>DPS - Denpasar</td>
+        <td>Sent</td>	
+        <td><a href="#"><img src="<?php echo base_url();?>assets/images/review.png" alt="Received" border="0" title="Received" /></a></td>
       </tr>
-      <?php } ?>
+      <tr>
+        <td>2</td>
+        <td>TO532546</td>
+        <td><? echo date('d-m-Y'); ?></td>
+        <td>MDN - Medan</td>
+        <td>DPS - Denpasar</td>
+        <td>Sent</td>	
+        <td><a href="#"><img src="<?php echo base_url();?>assets/images/review.png" alt="Received" border="0" title="Received" /></a></td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>TO532545</td>
+        <td><? echo date('d-m-Y'); ?></td>
+        <td>JKT - Jakarta</td>
+        <td>DPS - Denpasar</td>
+        <td>Sent</td>	
+        <td><a href="#"><img src="<?php echo base_url();?>assets/images/review.png" alt="Received" border="0" title="Received" /></a></td>
+       </tr>
     </tbody>
 </table>
 </div>

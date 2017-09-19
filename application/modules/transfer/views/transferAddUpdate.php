@@ -1,6 +1,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".select2").select2();
+	$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass: 'iradio_minimal-blue'
+    });
 });
 </script>
 <!-- START CREATE FORM INVENTORY IN -->
@@ -27,13 +30,15 @@ $(document).ready(function(){
       </div>
       <div class="form-group">
       <label>Transit</label>
-        <select class="form-control select2" multiple="multiple" data-placeholder="Select Transit" style="width: 100%;">
-          <option>JKT - Jakarta</option>
-          <option>SUB - Surabaya</option>
-          <option>MDN - Medan</option>
-          <option>MKS - Makassar</option>
-          <option>DPS - Denpasar</option>
-        </select>
+        <? $urut=0; foreach($getlokasi->result_array() as $lokasi) { ?>
+        <div class="checkbox">
+            <label>
+            	<input type="hidden" name="id[<? echo $urut; ?>]" value="<? echo $lokasi['id'] ?>" />
+              <input type="checkbox" name="transit_id[<? echo $urut; ?>]" value="1" class="minimal">
+			  <? echo $lokasi['nama'] ?>
+            </label>
+          </div>
+        <? } ?>
         
       </div>
       <div class="form-group">

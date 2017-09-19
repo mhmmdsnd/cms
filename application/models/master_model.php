@@ -30,7 +30,7 @@ Class Master_model extends CI_Model
     }
     function lokasi_get_by_id ($id)
     {
-        $this->db->where('id',$id);
+        $this->db->where($this->lokasi_primary_key,$id);
         $this->db->from($this->table_lokasi);
         return $this->db->get();
     }
@@ -41,29 +41,26 @@ Class Master_model extends CI_Model
     }
     function lokasi_update ($id, $location)
     {
-        $this->db->where('id',$id);
+        $this->db->where($this->lokasi_primary_key,$id);
         $this->db->update($this->table_lokasi,$location);
     }
     function lokasi_delete ($id)
     {
-        $this->db->where('id',$id);
+        $this->db->where($this->lokasi_primary_key,$id);
         $this->db->delete($this->table_lokasi);
     }
-    function lokasi_lookup ($keyword)
+    function lokasi_lookup ()
     {
-        $this->db->select('id,code, name, address, notelp');
-        $this->db->from($this->table_lokasi);
-        $this->db->like('code',$keyword,'after');
-        return $this->db->get();
+        return $this->db->get($this->table_lokasi);
     }
     function get_lokasi()
     {
-        $this->db->order_by('id','asc');
+        $this->db->order_by($this->lokasi_primary_key,'asc');
         $hasil = $this->db->get($this->table_lokasi);
         $result[""] = "Select ...";
         foreach ($hasil->result_array() as $list)
         {
-            $result[$list['id']] = $list['name'];
+            $result[$list[$this->lokasi_primary_key]] = $list['nama'];
         }
         return $result;
     }
@@ -76,7 +73,7 @@ Class Master_model extends CI_Model
             $this->db->order_by($this->category_primary_key,'asc');
         else
             $this->db->order_by($order_column,$order_type);
-        return $this->db->get($this->table_lokasi);
+        return $this->db->get($this->table_category);
     }
     function category_count_all($name="")
     {

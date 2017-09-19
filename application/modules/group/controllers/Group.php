@@ -44,18 +44,19 @@ class Group extends CI_Controller {
         $data['getmodule'] = $this->groupuser_model->getall_module();
         
         if($this->input->post('action')=="Save"){
-        	$data_grp = array('groupname' => $this->input->post('groupname'));
+        	$data_grp = array('groupName' => $this->input->post('groupname'));
         	$id = $this->groupuser_model->save($data_grp);
         	//redirect
         	
-            $count = count($this->input->post('moduleid'));
-    		for($i=0; $i<$count; $i++) {
-    			if (isset($_POST['access'][$i])) {
-    			$data_insert = array('groupId'=>$id, 'moduleId' => $_POST['moduleid'][$i],'access' => $_POST['access'][$i]);
-    			 $this->groupuser_model->save_module($data_insert);
-    		  	}
+            $menuId = $this->input->post('menuId');
+    		foreach ($menuId as $idx=>$listmenu){
+                $access = $this->input->post('access['.$idx.']');
+                if (isset($access)) {
+                    $data_insert = array('groupId'=>$id, 'moduleId' => $this->input->post('menuId['.$idx.']'),'access' => $access);
+                    $this->groupuser_model->save_module($data_insert);
+                }
             }
-            
+
             redirect('group/index/');
         }
         // load view
@@ -68,23 +69,21 @@ class Group extends CI_Controller {
         $data['detail'] = $this->groupuser_model->get_by_id($id)->row();
         // set common properties
         $data['getmodule'] = $this->groupuser_model->getall_module();
-        
-        $data['getakses'] = $this->groupuser_model;
-        
+        $data['getakses'] = $this->groupuser_model->get_akses($id);
         
         if($this->input->post('action')){
         	$id = $this->input->post('id');
         	$data_grp = array('groupname' => $this->input->post('groupname'));
             $this->groupuser_model->update($id,$data_grp);
-        	
             $this->groupuser_model->delete_module($id);
-            
-            $count = count($this->input->post('moduleid'));
-    		for($i=0; $i<$count; $i++) {
-    			if (isset($_POST['access'][$i])) {
-    			$data_insert = array('groupId'=>$id, 'moduleId' => $_POST['moduleid'][$i],'access' => $_POST['access'][$i]);
-    			 $this->groupuser_model->save_module($data_insert);
-    		  	}
+
+            $menuId = $this->input->post('menuId');
+            foreach ($menuId as $idx=>$listmenu){
+                $access = $this->input->post('access['.$idx.']');
+                if (isset($access)) {
+                    $data_insert = array('groupId'=>$id, 'moduleId' => $this->input->post('menuId['.$idx.']'),'access' => $access);
+                    $this->groupuser_model->save_module($data_insert);
+                }
             }
             
             //redirect
@@ -103,3 +102,4 @@ class Group extends CI_Controller {
 }
 
 ?>
+

@@ -52,6 +52,7 @@ $(document).ready(function(){
 			error.insertAfter(element.parent());
 		},
 		submitHandler: function (form) {
+			form.submit();
 		},
 		invalidHandler: function (form) {
 		}
@@ -91,7 +92,7 @@ $(document).ready(function(){
     </div>
     
     <div class="form-group">
-        <label class="control-label col-sm-3 no-padding-right" for="email">User Group : </label>
+        <label class="control-label col-sm-3 no-padding-right" for="email">Authorized : </label>
         <div class="col-xs-12 col-sm-9">
             <div class="clearfix">
                 <?php $extra = array('class' => 'col-xs-12 col-sm-6'); echo form_dropdown("groupId",$getgroup,'',$extra) ?><br />
@@ -174,6 +175,7 @@ $(document).ready(function(){
 			error.insertAfter(element.parent());
 		},
 		submitHandler: function (form) {
+			form.submit();
 		},
 		invalidHandler: function (form) {
 		}
@@ -216,7 +218,7 @@ $(document).ready(function(){
                 </div>
                 
                 <div class="form-group">
-                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">User Group : </label>
+                    <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Authorized : </label>
                     <div class="col-xs-12 col-sm-9">
                         <div class="clearfix">
                             <?php $extra = array('class' => 'input-medium'); echo form_dropdown("groupId",$getgroup,$detail->groupId,$extra) ?><br />

@@ -49,6 +49,14 @@ class Location extends CI_Controller
     {
         if($this->session->userdata('logged_in'))
         {
+            if($this->input->post('action')){
+                $data_user = array('kode' => $this->input->post('locationCode'),'nama' => $this->input->post('locationName'));
+                $id = $this->master_model->lokasi_save($data_user);
+                //validasi ID
+                $this->validation->id = $id;
+                //redirect
+                redirect('location/index/');
+            }
             $this->template->set('title','Location');
             $this->template->load('cpanel/template','locationAddUpdate');
         }
@@ -61,8 +69,19 @@ class Location extends CI_Controller
     {
         if($this->session->userdata('logged_in'))
         {
+            $data['detail'] = $this->master_model->lokasi_get_by_id($id)->row();
+
+            if($this->input->post('action')){
+                $id = $this->input->post('id');
+                $data_user = array('kode' => $this->input->post('locationCode'),'nama' => $this->input->post('locationName'));
+                $id = $this->master_model->lokasi_update($id,$data_user);
+                //validasi ID
+                $this->validation->id = $id;
+                //redirect
+                redirect('location/index/');
+            }
             $this->template->set('title','Location');
-            $this->template->load('cpanel/template','locationAddUpdate');
+            $this->template->load('cpanel/template','locationAddUpdate',$data);
         }
         else
         {
@@ -73,7 +92,8 @@ class Location extends CI_Controller
     {
         if($this->session->userdata('logged_in'))
         {
-
+            $this->master_model->lokasi_delete($id);
+            redirect('location/index/', 'refresh');
         }
         else
         {

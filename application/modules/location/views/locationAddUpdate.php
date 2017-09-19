@@ -32,6 +32,7 @@ $(document).ready(function(){
 			error.insertAfter(element.parent());
 		},
 		submitHandler: function (form) {
+			form.submit();
 		},
 		invalidHandler: function (form) {
 		}
@@ -83,7 +84,7 @@ $(document).ready(function(){
     <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Location Code : </label>
     <div class="col-xs-12 col-sm-9">
         <div class="clearfix">
-            <input type="text" name="locationCode" id="locationCode" class="col-xs-12 col-sm-6" value="<?php echo $detail->code ?>" />
+            <input type="text" name="locationCode" id="locationCode" class="col-xs-12 col-sm-6" value="<?php echo $detail->kode ?>" />
         </div>
     </div>
 </div>
@@ -91,7 +92,7 @@ $(document).ready(function(){
     <label class="control-label col-xs-12 col-sm-3 no-padding-right" for="email">Location Name : </label>
     <div class="col-xs-12 col-sm-9">
         <div class="clearfix">
-            <input type="text" name="locationName" id="locationName" class="col-xs-12 col-sm-6" value="<?php echo $detail->name ?>"/>
+            <input type="text" name="locationName" id="locationName" class="col-xs-12 col-sm-6" value="<?php echo $detail->nama ?>"/>
         </div>
     </div>
 </div>
